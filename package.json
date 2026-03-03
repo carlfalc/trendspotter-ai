@@ -1,0 +1,16 @@
+{
+  "name": "trendspotter-ai",
+  "version": "0.1.0",
+  "description": "TrendSpotter AI is an all-in-one AI-powered product discovery and automated e-commerce store builder. It monitors trending products across social media, marketplaces, and ad networks in real-time, the",
+  "main": "index.html",
+  "scripts": {
+    "start": "npx serve ."
+  },
+  "keywords": [
+    "ai",
+    "saas",
+    "the-firm"
+  ],
+  "author": "The Firm — AI Venture Studio",
+  "license": "MIT"
+}
