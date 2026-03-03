@@ -1,0 +1,807 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>TrendSpotter AI - Find it. Build it. Sell it. Win it.</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        html {
+            scroll-behavior: smooth;
+        }
+
+        body {
+            font-family: 'Inter', sans-serif;
+            background-color: #0F172A;
+            color: #F8FAFC;
+            line-height: 1.6;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+
+        /* Navigation */
+        nav {
+            position: fixed;
+            top: 0;
+            width: 100%;
+            background: rgba(15, 23, 42, 0.95);
+            backdrop-filter: blur(10px);
+            z-index: 1000;
+            padding: 1rem 0;
+            border-bottom: 1px solid rgba(59, 130, 246, 0.1);
+        }
+
+        .nav-container {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .logo {
+            font-size: 1.5rem;
+            font-weight: 800;
+            color: #3B82F6;
+        }
+
+        .nav-links {
+            display: flex;
+            list-style: none;
+            gap: 2rem;
+        }
+
+        .nav-links a {
+            color: #CBD5E1;
+            text-decoration: none;
+            transition: color 0.3s;
+        }
+
+        .nav-links a:hover {
+            color: #3B82F6;
+        }
+
+        .cta-nav {
+            background: #3B82F6;
+            color: white;
+            padding: 0.5rem 1.5rem;
+            border-radius: 8px;
+            text-decoration: none;
+            transition: all 0.3s;
+        }
+
+        .cta-nav:hover {
+            background: #2563EB;
+            transform: translateY(-2px);
+        }
+
+        /* Hero Section */
+        .hero {
+            padding: 8rem 0 4rem;
+            text-align: center;
+        }
+
+        .hero h1 {
+            font-size: 3.5rem;
+            font-weight: 800;
+            margin-bottom: 1.5rem;
+            background: linear-gradient(135deg, #3B82F6, #D4AF37);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        .hero .subtitle {
+            font-size: 1.25rem;
+            color: #CBD5E1;
+            margin-bottom: 2rem;
+            max-width: 600px;
+            margin-left: auto;
+            margin-right: auto;
+        }
+
+        .hero-buttons {
+            display: flex;
+            gap: 1rem;
+            justify-content: center;
+            margin-bottom: 3rem;
+        }
+
+        .btn-primary {
+            background: #3B82F6;
+            color: white;
+            padding: 1rem 2rem;
+            border: none;
+            border-radius: 8px;
+            font-size: 1.1rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s;
+            text-decoration: none;
+            display: inline-block;
+        }
+
+        .btn-primary:hover {
+            background: #2563EB;
+            transform: translateY(-2px);
+            box-shadow: 0 10px 25px rgba(59, 130, 246, 0.3);
+        }
+
+        .btn-secondary {
+            background: transparent;
+            color: #D4AF37;
+            padding: 1rem 2rem;
+            border: 2px solid #D4AF37;
+            border-radius: 8px;
+            font-size: 1.1rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s;
+            text-decoration: none;
+            display: inline-block;
+        }
+
+        .btn-secondary:hover {
+            background: #D4AF37;
+            color: #0F172A;
+        }
+
+        .hero-stats {
+            display: flex;
+            justify-content: center;
+            gap: 3rem;
+            margin-top: 2rem;
+        }
+
+        .stat {
+            text-align: center;
+        }
+
+        .stat-number {
+            font-size: 2rem;
+            font-weight: 800;
+            color: #D4AF37;
+        }
+
+        .stat-label {
+            color: #94A3B8;
+            font-size: 0.9rem;
+        }
+
+        /* Features Section */
+        .features {
+            padding: 4rem 0;
+        }
+
+        .section-title {
+            text-align: center;
+            font-size: 2.5rem;
+            font-weight: 700;
+            margin-bottom: 3rem;
+            color: #F8FAFC;
+        }
+
+        .features-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 2rem;
+        }
+
+        .feature-card {
+            background: rgba(30, 41, 59, 0.5);
+            padding: 2rem;
+            border-radius: 12px;
+            border: 1px solid rgba(59, 130, 246, 0.1);
+            transition: all 0.3s;
+        }
+
+        .feature-card:hover {
+            transform: translateY(-5px);
+            border-color: rgba(59, 130, 246, 0.3);
+            box-shadow: 0 10px 25px rgba(0, 0, 0, 0.3);
+        }
+
+        .feature-icon {
+            width: 60px;
+            height: 60px;
+            background: linear-gradient(135deg, #3B82F6, #D4AF37);
+            border-radius: 12px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin-bottom: 1.5rem;
+            font-size: 1.5rem;
+        }
+
+        .feature-card h3 {
+            font-size: 1.25rem;
+            font-weight: 600;
+            margin-bottom: 1rem;
+            color: #F8FAFC;
+        }
+
+        .feature-card p {
+            color: #CBD5E1;
+        }
+
+        /* How It Works */
+        .how-it-works {
+            padding: 4rem 0;
+            background: rgba(30, 41, 59, 0.3);
+        }
+
+        .steps {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 2rem;
+            margin-top: 3rem;
+        }
+
+        .step {
+            text-align: center;
+            position: relative;
+        }
+
+        .step-number {
+            width: 60px;
+            height: 60px;
+            background: #3B82F6;
+            color: white;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.5rem;
+            font-weight: 700;
+            margin: 0 auto 1.5rem;
+        }
+
+        .step h3 {
+            font-size: 1.25rem;
+            font-weight: 600;
+            margin-bottom: 1rem;
+        }
+
+        /* Pricing */
+        .pricing {
+            padding: 4rem 0;
+        }
+
+        .pricing-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 2rem;
+            margin-top: 3rem;
+        }
+
+        .pricing-card {
+            background: rgba(30, 41, 59, 0.5);
+            padding: 2.5rem;
+            border-radius: 12px;
+            border: 1px solid rgba(59, 130, 246, 0.1);
+            text-align: center;
+            position: relative;
+            transition: all 0.3s;
+        }
+
+        .pricing-card:hover {
+            transform: translateY(-5px);
+            border-color: rgba(59, 130, 246, 0.3);
+        }
+
+        .pricing-card.featured {
+            border-color: #D4AF37;
+            background: rgba(212, 175, 55, 0.1);
+        }
+
+        .popular-badge {
+            position: absolute;
+            top: -10px;
+            left: 50%;
+            transform: translateX(-50%);
+            background: #D4AF37;
+            color: #0F172A;
+            padding: 0.5rem 1rem;
+            border-radius: 20px;
+            font-size: 0.8rem;
+            font-weight: 600;
+        }
+
+        .pricing-card h3 {
+            font-size: 1.5rem;
+            font-weight: 700;
+            margin-bottom: 1rem;
+        }
+
+        .price {
+            font-size: 3rem;
+            font-weight: 800;
+            color: #3B82F6;
+            margin-bottom: 0.5rem;
+        }
+
+        .price-period {
+            color: #94A3B8;
+            margin-bottom: 2rem;
+        }
+
+        .features-list {
+            list-style: none;
+            margin-bottom: 2rem;
+        }
+
+        .features-list li {
+            padding: 0.5rem 0;
+            color: #CBD5E1;
+        }
+
+        .features-list li::before {
+            content: "✓";
+            color: #10B981;
+            font-weight: bold;
+            margin-right: 0.5rem;
+        }
+
+        /* Testimonials */
+        .testimonials {
+            padding: 4rem 0;
+            background: rgba(30, 41, 59, 0.3);
+        }
+
+        .testimonials-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 2rem;
+            margin-top: 3rem;
+        }
+
+        .testimonial {
+            background: rgba(30, 41, 59, 0.5);
+            padding: 2rem;
+            border-radius: 12px;
+            border: 1px solid rgba(59, 130, 246, 0.1);
+        }
+
+        .testimonial-text {
+            color: #CBD5E1;
+            margin-bottom: 1.5rem;
+            font-style: italic;
+        }
+
+        .testimonial-author {
+            font-weight: 600;
+            color: #F8FAFC;
+        }
+
+        .testimonial-title {
+            color: #94A3B8;
+            font-size: 0.9rem;
+        }
+
+        /* FAQ */
+        .faq {
+            padding: 4rem 0;
+        }
+
+        .faq-item {
+            background: rgba(30, 41, 59, 0.5);
+            margin-bottom: 1rem;
+            border-radius: 8px;
+            border: 1px solid rgba(59, 130, 246, 0.1);
+        }
+
+        .faq-question {
+            padding: 1.5rem;
+            cursor: pointer;
+            font-weight: 600;
+            color: #F8FAFC;
+            border: none;
+            background: none;
+            width: 100%;
+            text-align: left;
+            transition: color 0.3s;
+        }
+
+        .faq-question:hover {
+            color: #3B82F6;
+        }
+
+        .faq-answer {
+            padding: 0 1.5rem 1.5rem;
+            color: #CBD5E1;
+        }
+
+        /* Footer */
+        footer {
+            padding: 3rem 0;
+            background: rgba(15, 23, 42, 0.8);
+            text-align: center;
+        }
+
+        .footer-content {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 2rem;
+            margin-bottom: 2rem;
+        }
+
+        .footer-section h3 {
+            color: #3B82F6;
+            margin-bottom: 1rem;
+        }
+
+        .footer-section a {
+            color: #CBD5E1;
+            text-decoration: none;
+            display: block;
+            margin-bottom: 0.5rem;
+            transition: color 0.3s;
+        }
+
+        .footer-section a:hover {
+            color: #3B82F6;
+        }
+
+        .footer-bottom {
+            border-top: 1px solid rgba(59, 130, 246, 0.1);
+            padding-top: 2rem;
+            color: #94A3B8;
+        }
+
+        /* Email Signup */
+        .email-signup {
+            display: flex;
+            gap: 1rem;
+            max-width: 400px;
+            margin: 2rem auto;
+        }
+
+        .email-input {
+            flex: 1;
+            padding: 0.75rem;
+            border: 1px solid rgba(59, 130, 246, 0.3);
+            border-radius: 8px;
+            background: rgba(30, 41, 59, 0.5);
+            color: #F8FAFC;
+        }
+
+        .email-input::placeholder {
+            color: #94A3B8;
+        }
+
+        /* Mobile Responsiveness */
+        @media (max-width: 768px) {
+            .nav-links {
+                display: none;
+            }
+
+            .hero h1 {
+                font-size: 2.5rem;
+            }
+
+            .hero-buttons {
+                flex-direction: column;
+                align-items: center;
+            }
+
+            .hero-stats {
+                flex-direction: column;
+                gap: 1rem;
+            }
+
+            .email-signup {
+                flex-direction: column;
+            }
+
+            .section-title {
+                font-size: 2rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Navigation -->
+    <nav>
+        <div class="container">
+            <div class="nav-container">
+                <div class="logo">TrendSpotter AI</div>
+                <ul class="nav-links">
+                    <li><a href="#features">Features</a></li>
+                    <li><a href="#how-it-works">How it Works</a></li>
+                    <li><a href="#pricing">Pricing</a></li>
+                    <li><a href="#faq">FAQ</a></li>
+                </ul>
+                <a href="#pricing" class="cta-nav">Get Started</a>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Hero Section -->
+    <section class="hero">
+        <div class="container">
+            <h1>Find it. Build it. Sell it. Win it.</h1>
+            <p class="subtitle">TrendSpotter AI discovers trending products, builds complete stores, and delivers marketing warfare playbooks — all while you sleep. Stop hunting for winners. Start creating them.</p>
+            
+            <div class="hero-buttons">
+                <a href="#pricing" class="btn-primary">Start Free Trial</a>
+                <a href="#how-it-works" class="btn-secondary">See How It Works</a>
+            </div>
+
+            <div class="hero-stats">
+                <div class="stat">
+                    <div class="stat-number">20+</div>
+                    <div class="stat-label">Trending Products Daily</div>
+                </div>
+                <div class="stat">
+                    <div class="stat-number">1-Click</div>
+                    <div class="stat-label">Store Builder</div>
+                </div>
+                <div class="stat">
+                    <div class="stat-number">24/7</div>
+                    <div class="stat-label">Product Discovery</div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Features Section -->
+    <section id="features" class="features">
+        <div class="container">
+            <h2 class="section-title">The Complete E-commerce Loop</h2>
+            <div class="features-grid">
+                <div class="feature-card">
+                    <div class="feature-icon">🎯</div>
+                    <h3>Product Spotter AI</h3>
+                    <p>Our AI continuously monitors TikTok, Instagram, Facebook Ad Libraries, AliExpress, and Amazon BSR rankings to discover trending products before your competition.</p>
+                </div>
+                
+                <div class="feature-card">
+                    <div class="feature-icon">🏗️</div>
+                    <h3>AI Store Builder</h3>
+                    <p>Transform any trending product into a complete, conversion-optimized store in minutes. Custom branding, mobile-responsive design, and Stripe checkout included.</p>
+                </div>
+                
+                <div class="feature-card">
+                    <div class="feature-icon">🔗</div>
+                    <h3>Supply Chain Intelligence</h3>
+                    <p>Automatically connects suppliers with real-time pricing, dropship integration, and quality scoring. No more manual sourcing or supplier hunting.</p>
+                </div>
+                
+                <div class="feature-card">
+                    <div class="feature-icon">⚔️</div>
+                    <h3>Marketing Warfare Engine</h3>
+                    <p>Generate complete marketing playbooks with ad copy, creative briefs, targeting strategies, and competitor analysis for every product you choose to sell.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- How It Works -->
+    <section id="how-it-works" class="how-it-works">
+        <div class="container">
+            <h2 class="section-title">From Zero to Store in Minutes</h2>
+            <div class="steps">
+                <div class="step">
+                    <div class="step-number">1</div>
+                    <h3>Wake Up to Winners</h3>
+                    <p>Every morning, find 20+ curated trending products in your dashboard, complete with trend scores, competition analysis, and profit potential.</p>
+                </div>
+                
+                <div class="step">
+                    <div class="step-number">2</div>
+                    <h3>Click to Build</h3>
+                    <p>Select any product and watch our AI build a complete, branded store with optimized copy, images, checkout, and mobile responsiveness in under 60 seconds.</p>
+                </div>
+                
+                <div class="step">
+                    <div class="step-number">3</div>
+                    <h3>Launch & Scale</h3>
+                    <p>Get your complete marketing warfare playbook with ad creatives, targeting data, and scaling strategies. Connect suppliers and start selling immediately.</p>
+                </div>
+                
+                <div class="step">
+                    <div class="step-number">4</div>
+                    <h3>Rinse & Repeat</h3>
+                    <p>Our Learning Brain gets smarter with every user. As trends shift, we adapt. Your competitive advantage compounds over time.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Pricing -->
+    <section id="pricing" class="pricing">
+        <div class="container">
+            <h2 class="section-title">Choose Your Empire Level</h2>
+            <div class="pricing-grid">
+                <div class="pricing-card">
+                    <h3>Starter</h3>
+                    <div class="price">$49</div>
+                    <div class="price-period">/month</div>
+                    <ul class="features-list">
+                        <li>10 trending products/day</li>
+                        <li>2 store builds/month</li>
+                        <li>Basic supplier directory</li>
+                        <li>Stripe integration</li>
+                        <li>Basic marketing playbook</li>
+                    </ul>
+                    <a href="#" class="btn-primary">Start Free Trial</a>
+                </div>
+                
+                <div class="pricing-card featured">
+                    <div class="popular-badge">Most Popular</div>
+                    <h3>Pro</h3>
+                    <div class="price">$149</div>
+                    <div class="price-period">/month</div>
+                    <ul class="features-list">
+                        <li>30 trending products/day</li>
+                        <li>10 store builds/month</li>
+                        <li>Full supplier connections with pricing</li>
+                        <li>Full Marketing Warfare Engine</li>
+                        <li>Custom domains</li>
+                        <li>A/B testing</li>
+                    </ul>
+                    <a href="#" class="btn-primary">Start Free Trial</a>
+                </div>
+                
+                <div class="pricing-card">
+                    <h3>Empire</h3>
+                    <div class="price">$399</div>
+                    <div class="price-period">/month</div>
+                    <ul class="features-list">
+                        <li>Unlimited trending products</li>
+                        <li>Unlimited store builds</li>
+                        <li>Full supplier auto-linking</li>
+                        <li>Complete marketing warfare</li>
+                        <li>White label access</li>
+                        <li>Priority support</li>
+                        <li>API access</li>
+                    </ul>
+                    <a href="#" class="btn-primary">Start Free Trial</a>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Testimonials -->
+    <section class="testimonials">
+        <div class="container">
+            <h2 class="section-title">Success Stories</h2>
+            <div class="testimonials-grid">
+                <div class="testimonial">
+                    <p class="testimonial-text">"I was spending 15 hours a week just finding products. TrendSpotter AI found me 3 winners in the first week. My first store hit $10K in 30 days."</p>
+                    <div class="testimonial-author">Marcus Chen</div>
+                    <div class="testimonial-title">E-commerce Entrepreneur</div>
+                </div>
+                
+                <div class="testimonial">
+                    <p class="testimonial-text">"The Marketing Warfare Engine is insane. It gave me ad copy that converted at 4.2% immediately. My ROAS went from 2.1 to 5.8 in two weeks."</p>
+                    <div class="testimonial-author">Sarah Williams</div>
+                    <div class="testimonial-title">Dropshipping Store Owner</div>
+                </div>
+                
+                <div class="testimonial">
+                    <p class="testimonial-text">"As an agency, the white-label feature lets us build stores for clients in minutes instead of days. We've 10x'd our capacity without hiring anyone."</p>
+                    <div class="testimonial-author">David Rodriguez</div>
+                    <div class="testimonial-title">Marketing Agency Owner</div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- FAQ -->
+    <section id="faq" class="faq">
+        <div class="container">
+            <h2 class="section-title">Frequently Asked Questions</h2>
+            
+            <div class="faq-item">
+                <button class="faq-question">How is this different from Shopify + other tools?</button>
+                <div class="faq-answer">
+                    TrendSpotter AI closes the entire loop. Shopify builds stores but doesn't find products. Sell The Trend finds products but doesn't build stores. We do both, plus supply chain connection and marketing intelligence - all powered by AI that gets smarter every day.
+                </div>
+            </div>
+            
+            <div class="faq-item">
+                <button class="faq-question">What makes your product discovery better?</button>
+                <div class="faq-answer">
+                    Our Product Spotter AI monitors 15+ data sources simultaneously including TikTok engagement, Facebook Ad Library spend, AliExpress sales velocity, Amazon BSR shifts, and social sentiment. It finds trends 2-3 weeks before they peak.
+                </div>
+            </div>
+            
+            <div class="faq-item">
+                <button class="faq-question">Can I use my own suppliers?</button>
+                <div class="faq-answer">
+                    Absolutely. Our Supply Chain Intelligence connects to your existing suppliers or finds new ones. We provide real-time pricing, quality scores, and dropship integration for maximum flexibility.
+                </div>
+            </div>
+            
+            <div class="faq-item">
+                <button class="faq-question">Is there a free trial?</button>
+                <div class="faq-answer">
+                    Yes! Every plan includes a 14-day free trial. No credit card required. You can build up to 2 stores and see 10 trending products daily to test our platform risk-free.
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer>
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-section">
+                    <h3>TrendSpotter AI</h3>
+                    <p style="color: #CBD5E1;">The AI that finds what to sell, builds the store, connects the supply chain, and tells you exactly how to win.</p>
+                    
+                    <div class="email-signup">
+                        <input type="email" placeholder="Enter your email" class="email-input">
+                        <button class="btn-primary">Get Updates</button>
+                    </div>
+                </div>
+                
+                <div class="footer-section">
+                    <h3>Product</h3>
+                    <a href="#features">Features</a>
+                    <a href="#pricing">Pricing</a>
+                    <a href="#how-it-works">How it Works</a>
+                    <a href="#">API</a>
+                </div>
+                
+                <div class="footer-section">
+                    <h3>Company</h3>
+                    <a href="#">About</a>
+                    <a href="#">Blog</a>
+                    <a href="#">Careers</a>
+                    <a href="#">Contact</a>
+                </div>
+                
+                <div class="footer-section">
+                    <h3>Support</h3>
+                    <a href="#faq">FAQ</a>
+                    <a href="#">Help Center</a>
+                    <a href="#">Community</a>
+                    <a href="#">Status</a>
+                </div>
+            </div>
+            
+            <div class="footer-bottom">
+                <p>&copy; 2024 TrendSpotter AI. All rights reserved. | Privacy Policy | Terms of Service</p>
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        // Smooth scrolling for navigation links
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                e.preventDefault();
+                document.querySelector(this.getAttribute('href')).scrollIntoView({
+                    behavior: 'smooth'
+                });
+            });
+        });
+
+        // FAQ toggle functionality
+        document.querySelectorAll('.faq-question').forEach(question => {
+            question.addEventListener('click', function() {
+                const answer = this.nextElementSibling;
+                const isOpen = answer.style.display === 'block';
+                
+                // Close all FAQ answers
+                document.querySelectorAll('.faq-answer').forEach(ans => {
+                    ans.style.display = 'none';
+                });
+                
+                // Toggle current answer
+                answer.style.display = isOpen ? 'none' : 'block';
+            });
+        });
+    </script>
+</body>
+</html>
